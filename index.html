@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+    }
+    #container {
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<div id="container">
+    <h2>Temperature Converter</h2>
+    <label for="temperature">Temperature:</label>
+    <input type="number" id="temperature">
+    <select id="unit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+    </select>
+    <button onclick="convert()">Convert</button>
+    <div id="result"></div>
+</div>
+
+<script>
+function convert() {
+    let temperature = parseFloat(document.getElementById("temperature").value);
+    let unit = document.getElementById("unit").value;
+    let result = document.getElementById("result");
+
+    if (isNaN(temperature)) {
+        result.innerHTML = "Please enter a valid temperature.";
+        return;
+    }
+
+    let celsius, fahrenheit, kelvin;
+    
+    if (unit === 'celsius') {
+        celsius = temperature;
+        fahrenheit = (celsius * 9/5) + 32;
+        kelvin = celsius + 273.15;
+    } else if (unit === 'fahrenheit') {
+        fahrenheit = temperature;
+        celsius = (fahrenheit - 32) * 5/9;
+        kelvin = (fahrenheit - 32) * 5/9 + 273.15;
+    } else if (unit === 'kelvin') {
+        kelvin = temperature;
+        celsius = kelvin - 273.15;
+        fahrenheit = (kelvin - 273.15) * 9/5 + 32;
+    }
+
+    result.innerHTML = `
+        ${temperature} degrees ${unit} is equal to:<br>
+        ${fahrenheit.toFixed(2)} degrees Fahrenheit<br>
+        ${celsius.toFixed(2)} degrees Celsius<br>
+        ${kelvin.toFixed(2)} Kelvin
+    `;
+}
+</script>
+</body>
+</html>
